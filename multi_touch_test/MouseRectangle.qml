@@ -5,7 +5,8 @@ Rectangle{
     height:200;
     x:0;
     y:0;
-    color:"red";
+    radius: height/2;
+    color:"grey";
     MultiPointTouchArea {
         anchors.fill: parent
         minimumTouchPoints: 1
@@ -18,8 +19,9 @@ Rectangle{
         id:rocker
         width:50;
         height:50;
+        radius: height/2;
         x:Math.min(Math.max(0,touch.x - width/2),parent.width - width);
         y:Math.min(Math.max(0,touch.y - height/2),parent.height - height);
-        color:"blue";
+        color:"lightblue";
     }
 }
