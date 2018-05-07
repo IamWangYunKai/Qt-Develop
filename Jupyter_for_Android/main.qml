@@ -3,11 +3,12 @@ import QtQuick.Window 2.10
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
 import ZSS 1.0 as ZSS
+
 Window {
     id:control
     visible: true
-    width: 400
-    height: 480
+    width: 500
+    height: 500
     title: qsTr("Jupyter")
     property bool socketConnect : false;
     ZSS.Interaction{
@@ -45,6 +46,19 @@ Window {
                 }
             }
         }
+        ComboBox{
+            id:robotID;
+            model: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
+            onActivated: interaction.changeRobotID(currentIndex);
+            width:parent.itemWidth;
+            function updateModel(){
+                // = interaction.getNetworkInterfaces();
+                if(currentIndex >= 0)
+                    interaction.changeRobotID(currentIndex);
+            }
+            Component.onCompleted: updateModel();
+
+        }
         RowLayout {
             id: textRowLayout
             TextField {
@@ -58,6 +72,22 @@ Window {
                     interaction.send(sendText.text);
                 }
             }
+        }
+    }
+    MouseRectangle{
+        id:r1;
+        anchors.left: parent.left;
+        anchors.bottom: parent.bottom;
+        onValueChanged:{
+            interaction.pos(x, y)
+        }
+    }
+    MouseRectangle{
+        id:r2;
+        anchors.right: parent.right;
+        anchors.bottom: parent.bottom;
+        onValueChanged:{
+            interaction.dir(x, y)
         }
     }
 
