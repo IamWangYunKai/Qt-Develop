@@ -7,8 +7,8 @@ import ZSS 1.0 as ZSS
 Window {
     id:control
     visible: true
-    width: 500
-    height: 500
+    width: 680
+    height: 340
     title: qsTr("Jupyter")
     property bool socketConnect : false;
     ZSS.Interaction{
@@ -21,7 +21,7 @@ Window {
         verticalItemAlignment: Grid.AlignVCenter;
         horizontalItemAlignment: Grid.AlignHCenter;
         spacing: 5;
-        columns:1;
+        columns: 1;
         property int itemWidth : width - 2*padding;
         ComboBox{
             id:networkInterfacesComboBox;

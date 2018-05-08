@@ -25,18 +25,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-unix:android{
-    SPDLOG_INCLUDE = $$PWD/libs
-    PROTOBUF_INCLUDE += C:\usr\local\protobuf\3.3.0\include
-    CONFIG(release,debug|release){
-        PROTOBUF_LIB += C:\usr\local\protobuf\3.3.0\lib\android\libprotobuf.a
-        PROTOBUF_LIB += C:\usr\local\protobuf\3.3.0\lib\android\libprotobuf-lite.a
-        PROTOBUF_LIB += C:\usr\local\protobuf\3.3.0\lib\android\libprotoc.a
-    }
-}
-
 win32 {
-    SPDLOG_INCLUDE = $$PWD/libs
     PROTOBUF_INCLUDE = C:\usr\local\protobuf\3.3.0\include
     CONFIG(release,debug|release){
         PROTOBUF_LIB = C:\usr\local\protobuf\3.3.0\lib\vs14.0\libprotobuf.lib
@@ -45,6 +34,28 @@ win32 {
         PROTOBUF_LIB = C:\usr\local\protobuf\3.3.0\lib\vs14.0\libprotobufd.lib
     }
 }
+## ubuntu or something...
+linux:!android{
+
+}
+## macx desktop and ios phone
+unix{
+    PROTOBUF_INCLUDE = C:\usr\local\protobuf\3.3.0\include
+}
+## macx desktop
+macx{
+    PROTOBUF_LIB = /usr/local/Cellar/protobuf/3.3.0/lib/libprotobuf.a
+}
+## android phone
+android{
+    PROTOBUF_LIB = C:\usr\protobuf\libprotobuf.a
+}
+## ios phone
+ios{
+    CONFIG -= bitcode
+    PROTOBUF_LIB = /usr/local/Cellar/protobuf/3.3.0/platform/ios_universal/libprotobuf.a
+}
+
 INCLUDEPATH += \
     $$SPDLOG_INCLUDE \
     $$PROTOBUF_INCLUDE
